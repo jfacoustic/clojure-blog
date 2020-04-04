@@ -8,5 +8,6 @@
                  [compojure "1.6.1"]]
   :repl-options {:init-ns clojure-blog.core}
   :main clojure-blog.core
+  :aot [clojure-blog.core]
   :profiles {:dev
              {:main clojure-blog.core/-dev-main}})
