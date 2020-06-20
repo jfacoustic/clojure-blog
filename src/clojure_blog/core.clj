@@ -7,9 +7,9 @@
 
 (defn welcome
   [request]
-    {:status 200
-     :body "<h1>Learning ring and compojre  now.</h1>"
-     :headers {}})
+  {:status 200
+   :body "<h1>Learning ring and compojre  now.</h1>"
+   :headers {}})
 
 (defroutes app
   (GET "/" [] welcome)
@@ -17,15 +17,17 @@
 
 (defn -dev-main
   "Just getting started..."
-  [port-number]
-  (webserver/run-jetty
-                       (wrap-reload #'app)
-                       {:port (Integer. port-number)
-                        :join? false}))
+  [& args]
+  (let [port-number (or (first args) 3000)]
+    (webserver/run-jetty
+     (wrap-reload #'app)
+     {:port (Integer. port-number)
+      :join? false})))
 
 (defn -main
   "Just getting started..."
-  [port-number]
-  (webserver/run-jetty
-                      app
-                       {:port (Integer. port-number)}))
+  [& args]
+  (let [port-number (or (first args) 3000)]
+    (webserver/run-jetty
+     app
+     {:port (Integer. port-number)})))
