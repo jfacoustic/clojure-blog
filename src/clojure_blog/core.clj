@@ -30,7 +30,7 @@
   (do
     (write-file (:title (:body request))
                 (:content (:body request)))
-    (response (:body request))))
+    (response (:title (:body request)))))
 
 (defroutes app
   (GET "/" [] welcome)
@@ -44,7 +44,7 @@
     (webserver/run-jetty
      (-> #'app
          (wrap-logger "log.txt")
-         (wrap-json-body)
+         (wrap-json-body {:keywords? true})
          (wrap-json-response)
          (wrap-reload))
      {:port (Integer. port-number)
@@ -57,6 +57,6 @@
     (webserver/run-jetty
      (-> #'app
          (wrap-logger "log.txt")
-         (wrap-json-body)
+         (wrap-json-body {:keywords? true})
          (wrap-json-response))
      {:port (Integer. port-number)})))
